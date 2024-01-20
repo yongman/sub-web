@@ -4,8 +4,8 @@
       <el-col>
         <el-card>
           <div slot="header">
-            Subscription Converter
-            <svg-icon icon-class="github" style="margin-left: 20px" @click="goToProject" />
+            订阅在线转换
+            <svg-icon icon-class="telegram" style="margin-left: 20px" @click="goToTelegram" />
 
             <div style="display: inline-block; position:absolute; right: 20px">{{ backendVersion }}</div>
           </div>
@@ -17,7 +17,7 @@
               </el-form-item>
               <el-form-item label="订阅链接:">
                 <el-input v-model="form.sourceSubUrl" type="textarea" rows="3"
-                  placeholder="支持订阅或ss/ssr/vmess链接，多个链接每行一个或用 | 分隔" @blur="saveSubUrl" />
+                  placeholder="支持订阅 ss/ssr/vmess/vless/trojan/... 等格式链接，多个链接每行一个或用 | 分隔，默认后端分流规则支持 OpenAI/Copilot/Google Gemini 分组" @blur="saveSubUrl" />
               </el-form-item>
               <el-form-item label="客户端:">
                 <el-select v-model="form.clientType" style="width: 100%">
@@ -287,7 +287,7 @@ export default {
       form: {
         sourceSubUrl: "",
         clientType: "",
-        customBackend: "",
+        customBackend: defaultBackend,
         remoteConfig: "",
         excludeRemarks: "",
         includeRemarks: "",
@@ -331,7 +331,7 @@ export default {
     };
   },
   created() {
-    document.title = "Subscription Converter";
+    document.title = "订阅在线转换-Vmess/SS/SSR/Vless/Trojan/hysteria2";
     this.isPC = this.$getOS().isPc;
 
     // 获取 url cache
@@ -341,7 +341,7 @@ export default {
   },
   mounted() {
     this.form.clientType = "clash";
-    this.notify();
+    // this.notify();
     this.getBackendVersion();
   },
   methods: {
@@ -350,6 +350,9 @@ export default {
     },
     goToProject() {
       window.open(project);
+    },
+    goToTelegram() {
+      window.open(tgBotLink);
     },
     gotoGayhub() {
       window.open(gayhubRelease);
